@@ -16,12 +16,16 @@ class Db {
         writeFile(this.dbFileName, JSON.stringify(this._data), 'utf-8');
     }
 
-    async create(obj){
+    create(obj){
+        const id = uuid();
+
         this._data.push({
-            id: uuid(),
+            id,
             ...obj
         });
-        await this._save();
+        this._save();
+
+        return id
     }
 
     getOne(id){
